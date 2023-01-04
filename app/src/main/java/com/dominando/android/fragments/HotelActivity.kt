@@ -18,12 +18,14 @@ class HotelActivity : AppCompatActivity(), HotelListFragment.OnHotelClickListene
     override fun onHotelClick(hotel: Hotel) {
         if (isTablet()) {
             showDetailsFragment(hotel.id)
-        } else {
+        } else if (isSmartphone()){
             showDetailsActivity(hotel.id)
         }
     }
 
-    private fun isTablet() = findViewById<View>(R.id.details) != null
+    //private fun isTablet() = findViewById<View>(R.id.details) != null
+    private fun isTablet() = resources.getBoolean(R.bool.tablet)
+    private fun isSmartphone() = resources.getBoolean(R.bool.smartphone)
 
     private fun showDetailsFragment(hotelId: Long) {
         val fragment = HotelDetailsFragment.newInstance(hotelId)
