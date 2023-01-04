@@ -1,8 +1,10 @@
 package com.dominando.android.fragments
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.dominando.android.fragments.hotelDetails.HotelDetailsActivity
+import com.dominando.android.fragments.hotelDetails.HotelDetailsFragment
 import com.dominando.android.fragments.hotelList.HotelListFragment
 import com.dominando.android.fragments.model.Hotel
 
@@ -10,10 +12,27 @@ class HotelActivity : AppCompatActivity(), HotelListFragment.OnHotelClickListene
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_hotel)
     }
 
     override fun onHotelClick(hotel: Hotel) {
-        showDetailsActivity(hotel.id)
-    } private fun showDetailsActivity(hotelId: Long) { HotelDetailsActivity.open(this, hotelId) } }
+        if (isTablet()) {
+            showDetailsFragment(hotel.id)
+        } else {
+            showDetailsActivity(hotel.id)
+        }
+    }
+
+    private fun isTablet() = findViewById<View>(R.id.details) != null
+
+    private fun showDetailsFragment(hotelId: Long) {
+        val fragment = HotelDetailsFragment.newInstance(hotelId)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.details, fragment, HotelDetailsFragment.TAG_DETAILS).commit()
+    }
+
+    private fun showDetailsActivity(hotelId: Long) {
+        HotelDetailsActivity.open(this, hotelId)
+    }
+}
 
