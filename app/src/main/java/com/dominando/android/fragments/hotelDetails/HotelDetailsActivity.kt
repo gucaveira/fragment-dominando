@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.dominando.android.fragments.R
-import com.dominando.android.fragments.hotelDetails.HotelDetailsFragment
 
 class HotelDetailsActivity : AppCompatActivity() {
 
