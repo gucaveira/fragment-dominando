@@ -29,7 +29,7 @@ class HotelListFragment : ListFragment(),
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         retainInstance = true
-        presenter.searchHotels("")
+        presenter.init()
         listView.onItemLongClickListener = this
     }
 
