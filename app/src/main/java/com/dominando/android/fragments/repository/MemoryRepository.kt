@@ -40,9 +40,10 @@ object MemoryRepository : HotelRepository {
     }
 
     override fun search(term: String, action: (List<Hotel>) -> Unit) {
-        action(if (term.isEmpty()) hotelsList else hotelsList.filter {
+        val resultList = if (term.isEmpty()) hotelsList else hotelsList.filter {
             it.name.toUpperCase().contains(term.toUpperCase())
-        })
+        }
+        action(resultList.sortedBy { it.name })
     }
 }
 
