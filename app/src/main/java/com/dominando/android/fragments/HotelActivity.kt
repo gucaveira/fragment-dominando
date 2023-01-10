@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import com.dominando.android.fragments.databinding.ActivityHotelBinding
 import com.dominando.android.fragments.hotelDetails.HotelDetailsActivity
 import com.dominando.android.fragments.hotelDetails.HotelDetailsFragment
 import com.dominando.android.fragments.hotelForm.HotelFormFragment
@@ -27,9 +28,12 @@ class HotelActivity : AppCompatActivity(),
         supportFragmentManager.findFragmentById(R.id.fragmentList) as HotelListFragment
     }
 
+    private lateinit var binding: ActivityHotelBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hotel)
+        binding = ActivityHotelBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

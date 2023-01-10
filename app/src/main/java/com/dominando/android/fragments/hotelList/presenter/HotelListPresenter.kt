@@ -7,10 +7,20 @@ class HotelListPresenter(
     private val view: HotelListView,
     private val repository: HotelRepository
 ) {
-
     private var lastTerm = ""
     private var inDeleteMode = false
     private val selectedItems = mutableListOf<Hotel>()
+    private val deletedItems = mutableListOf<Hotel>()
+
+    init {
+        if (inDeleteMode) {
+            showDeleteMode()
+            view.updateSelectionCountText(selectedItems.size)
+            view.showSelectedHotels(selectedItems)
+        } else {
+            refresh()
+        }
+    }
 
     fun searchHotels(term: String) {
         lastTerm = term
@@ -60,8 +70,20 @@ class HotelListPresenter(
         //: É possível passar um array para um método que recebe um varargs simplesmente
         // adicionando um asterisco (*) à frente.
         repository.remove(*selectedItems.toTypedArray())
+        deletedItems.clear()
+        deletedItems.addAll(selectedItems)
         refresh()
         action(selectedItems)
         hideDeleteMode()
+        view.showMessageHotelsDeleted(deletedItems.size)
+    }
+
+    fun undoDelete() {
+        if (deletedItems.isNotEmpty()){
+            for (hotel in deletedItems){
+                repository.save(hotel)
+            }
+            searchHotels(lastTerm)
+        }
     }
 }

@@ -15,8 +15,12 @@ import com.dominando.android.fragments.hotelList.presenter.HotelListPresenter
 import com.dominando.android.fragments.hotelList.presenter.HotelListView
 import com.dominando.android.fragments.model.Hotel
 import com.dominando.android.fragments.repository.MemoryRepository
+import com.google.android.material.snackbar.Snackbar
 
-class HotelListFragment : ListFragment(), HotelListView, AdapterView.OnItemLongClickListener, ActionMode.Callback {
+class HotelListFragment : ListFragment(),
+    HotelListView,
+    AdapterView.OnItemLongClickListener,
+    ActionMode.Callback {
 
     private var actionMode: ActionMode? = null
 
@@ -98,6 +102,16 @@ class HotelListFragment : ListFragment(), HotelListView, AdapterView.OnItemLongC
             actionMode?.title =
                 resources.getQuantityString(R.plurals.list_hotel_selected, count, count)
         }
+    }
+
+    override fun showMessageHotelsDeleted(count: Int) {
+        Snackbar.make(
+            listView,
+            getString(R.string.message_hotels_deleted, count),
+            Snackbar.LENGTH_LONG
+        ).setAction(R.string.undo) {
+            presenter.undoDelete()
+        }.show()
     }
 
     override fun showSelectedHotels(hotels: List<Hotel>) {

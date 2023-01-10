@@ -5,14 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.dominando.android.fragments.R
+import com.dominando.android.fragments.databinding.ActivityHotelDetailsBinding
 
 class HotelDetailsActivity : AppCompatActivity() {
 
     private val hotelId: Long by lazy { intent.getLongExtra(EXTRA_HOTEL_ID, -1) }
 
+    private lateinit var binding: ActivityHotelDetailsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hotel_details)
+        binding = ActivityHotelDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         if (savedInstanceState == null) {
             showHotelDetailsFragment()
         }
