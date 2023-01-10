@@ -67,6 +67,7 @@ class HotelActivity : AppCompatActivity(),
     private fun isSmartphone() = resources.getBoolean(R.bool.smartphone)
 
     private fun showDetailsFragment(hotelId: Long) {
+        searchView?.setOnQueryTextListener(null)
         val fragment = HotelDetailsFragment.newInstance(hotelId)
         supportFragmentManager.beginTransaction()
             .replace(R.id.details, fragment, HotelDetailsFragment.TAG_DETAILS).commit()
@@ -75,8 +76,6 @@ class HotelActivity : AppCompatActivity(),
     private fun showDetailsActivity(hotelId: Long) {
         /* o menu será recriado quando o fragment de detalhe for exibido,
          então o listener deve ser removido para não ser notificado com o texto vazio */
-        searchView?.setOnQueryTextListener(null)
-
         HotelDetailsActivity.open(this, hotelId)
     }
 

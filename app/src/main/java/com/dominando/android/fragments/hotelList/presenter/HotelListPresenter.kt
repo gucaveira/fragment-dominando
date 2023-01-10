@@ -46,10 +46,8 @@ class HotelListPresenter(
         val existing = selectedItems.find { it.id == hotel.id }
 
         existing?.let {
-            selectedItems.add(it)
-        } ?: run {
             selectedItems.removeAll { it.id == hotel.id }
-        }
+        } ?: run { selectedItems.add(hotel) }
     }
 
     fun showDeleteMode() {
