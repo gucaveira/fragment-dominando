@@ -34,6 +34,11 @@ class HotelActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         binding = ActivityHotelBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.fabAdd.setOnClickListener {
+            listFragment.hideDeleteMode()
+            HotelFormFragment.newInstance().open(supportFragmentManager)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
