@@ -20,4 +20,7 @@
 
     <string name="message_hotels_deleted">%d itens excluídos.</string>
     <string name="undo">Desfazer</string>
+    <string name="action_share">Compartilhar</string>
+    <string name="share_text">Me hospedei no %1$s e o classifiquei em %2$.1f estrelas</string>
+
 </resources>
